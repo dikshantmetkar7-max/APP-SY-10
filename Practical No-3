@@ -1,0 +1,95 @@
+class PaymentStrategy:
+    # This method will be overridden in child classes
+    def pay(self, amount):
+        pass
+
+
+
+class CreditCardPayment(PaymentStrategy):
+
+    def pay(self, amount):
+        print(f"Paid ₹{amount} using Credit Card")
+
+
+class PayPalPayment(PaymentStrategy):
+
+    def pay(self, amount):
+        print(f"Paid ₹{amount} using PayPal")
+
+
+
+class PaymentContext:
+
+   
+    def __init__(self, strategy):
+        # Store current payment method
+        self.strategy = strategy
+
+    
+    def set_strategy(self, strategy):
+        self.strategy = strategy
+
+
+    def pay(self, amount):
+        self.strategy.pay(amount)
+
+
+credit = CreditCardPayment()
+
+payment = PaymentContext(credit)
+
+
+payment.pay(1000)
+
+paypal = PayPalPayment()
+
+payment.set_strategy(paypal)
+
+payment.pay(500)
+
+class PaymentStrategy:
+
+    def pay(self, amount):
+        pass
+
+
+class UpiPayment(PaymentStrategy):
+
+    def pay(self, amount):
+        print(f"Paid ₹{amount} using UPI")
+
+
+class CashPayment(PaymentStrategy):
+
+    def pay(self, amount):
+        print(f"Paid ₹{amount} using Cash")
+
+
+class DebitCardPayment(PaymentStrategy):
+
+    def pay(self, amount):
+        print(f"Paid ₹{amount} using Debit Card")
+
+
+class PaymentContext:
+
+    def __init__(self, strategy):
+        self.strategy = strategy
+
+    def set_strategy(self, strategy):
+        self.strategy = strategy
+
+    def make_payment(self, amount):
+        self.strategy.pay(amount)
+
+upi = UpiPayment()
+payment = PaymentContext(upi)
+payment.make_payment(1000)
+
+cash = CashPayment()
+payment.set_strategy(cash)
+payment.make_payment(500)
+
+debit = DebitCardPayment()
+payment.set_strategy(debit)
+payment.make_payment(750)
